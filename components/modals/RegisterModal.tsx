@@ -115,10 +115,8 @@ export const RegisterModal = () => {
                 )}
               />
               <div className="pt-6 space-x-2 flex items-center justify-end">
-                <Button variant="outline" onClick={registerModal.onClose}>
-                  Cancel
-                </Button>
-                <Button type="submit">Continue</Button>
+                 
+                <Button type="submit">Register</Button>
               </div>
             </form>
           </Form>

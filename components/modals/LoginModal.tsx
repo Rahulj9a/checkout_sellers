@@ -21,14 +21,18 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
-  password: z.string().min(8, {
-    message: "Password must be at least 8 characters long.",
-  }).regex(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-    {
-      message: "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character (@$!%*?&).",
-    }
-  ),
+  password: z
+    .string()
+    .min(8, {
+      message: "Password must be at least 8 characters long.",
+    })
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      {
+        message:
+          "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character (@$!%*?&).",
+      }
+    ),
 });
 
 export const LoginModal = () => {
@@ -36,21 +40,21 @@ export const LoginModal = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      password:""
+      password: "",
     },
   });
 
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
-  const onToggle = ()=>{
+  const onToggle = () => {
     loginModal.onClose();
-    registerModal.onOpen()
-  }
+    registerModal.onOpen();
+  };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
   };
-  if(!loginModal.isOpen){
+  if (!loginModal.isOpen) {
     return null;
   }
   return (
@@ -84,7 +88,11 @@ export const LoginModal = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Password" type="password" {...field} />
+                      <Input
+                        placeholder="Password"
+                        type="password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -100,15 +108,16 @@ export const LoginModal = () => {
           </Form>
         </div>
         <div className="text-neutral-400 text-center mt-4">
-               <p>
-                    First time using Checkout Sellers?{" "}
-                    <span
-                         className="text-neutral-800 hover:text-black cursor-pointer hover:underline"
-                         onClick={onToggle}>
-                         Regsiter
-                    </span>
-               </p>
-          </div>
+          <p>
+            First time using Checkout Sellers?{" "}
+            <span
+              className="text-neutral-800 hover:text-black cursor-pointer hover:underline"
+              onClick={onToggle}
+            >
+              Regsiter
+            </span>
+          </p>
+        </div>
       </div>
     </Modal>
   );
