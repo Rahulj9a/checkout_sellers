@@ -1,8 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { QueryClient,QueryClientProvider } from "react-query";
+
 import { Inter } from "next/font/google";
-import { NextAuthProvider } from "./provider";
+import { NextAuthProvider } from "@/providers/nextAuthProvider";
+import { ModalProvider } from "@/providers/modalProvider";
+import ReactQueryProvider from "@/providers/reactQueryProvider";
+import { ToasterProvider } from "@/providers/toast-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,8 +13,6 @@ export const metadata: Metadata = {
   title: "Checkout sellers",
   description: "Control your checkout products",
 };
-
-const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -21,9 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <QueryClientProvider client={queryClient}>
-        <NextAuthProvider>{children}</NextAuthProvider>
-        </QueryClientProvider>
+        <ReactQueryProvider>
+          <NextAuthProvider>
+            <ToasterProvider />
+            <ModalProvider/>
+            {children}
+          </NextAuthProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

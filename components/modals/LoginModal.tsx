@@ -2,6 +2,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {toast} from "react-hot-toast"
 
 import {
   Form,
@@ -16,6 +17,8 @@ import { Button } from "@/components/ui/button";
 import Modal from "@/components/ui/Modal";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { useRegisterModal } from "@/hooks/useRegisterModal";
+import { useCallback, useState } from "react";
+import { signIn } from "next-auth/react";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -35,6 +38,8 @@ const formSchema = z.object({
     ),
 });
 
+
+
 export const LoginModal = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -43,16 +48,25 @@ export const LoginModal = () => {
       password: "",
     },
   });
-
+  const [isLoading, setisLoading] = useState(false)
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
-  const onToggle = () => {
+  const onToggle = useCallback(() => {
     loginModal.onClose();
     registerModal.onOpen();
-  };
+  }, [loginModal, registerModal]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      setisLoading(true)
+      await signIn("credentials", values);
+      toast.success("Login Successfull")
+      loginModal.onClose();
+    } catch (error) {
+      toast.error("Something went wrong")
+    } finally {
+      setisLoading(false);
+    }
   };
   if (!loginModal.isOpen) {
     return null;
@@ -75,7 +89,7 @@ export const LoginModal = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Your Email" type="email" {...field} />
+                      <Input disabled={isLoading} placeholder="Your Email" type="email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -89,6 +103,7 @@ export const LoginModal = () => {
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
+                      disabled={isLoading}
                         placeholder="Password"
                         type="password"
                         {...field}
@@ -99,10 +114,8 @@ export const LoginModal = () => {
                 )}
               />
               <div className="pt-6 space-x-2 flex items-center justify-end">
-                <Button variant="outline" onClick={loginModal.onClose}>
-                  Cancel
-                </Button>
-                <Button type="submit">Continue</Button>
+                 
+                <Button disabled={isLoading} type="submit">Login</Button>
               </div>
             </form>
           </Form>

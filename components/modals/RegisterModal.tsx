@@ -2,7 +2,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { toast } from "react-hot-toast";
 import {
   Form,
   FormControl,
@@ -16,6 +16,10 @@ import { Button } from "@/components/ui/button";
 import Modal from "@/components/ui/Modal";
 import { useRegisterModal } from "@/hooks/useRegisterModal";
 import { useLoginModal } from "@/hooks/useLoginModal";
+import { useCallback, useState } from "react";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { signIn } from "next-auth/react";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -33,10 +37,14 @@ const formSchema = z.object({
           "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character (@$!%*?&).",
       }
     ),
-    enterprise:z.string().min(4,{
-      message:"Enterprise name must be at least 4 letters long"
-    }).regex(/^[A-Za-z]+$/, {
-      message:"Enterprize name must contain only letters from English Alphabet"
+  enterprise: z
+    .string()
+    .min(4, {
+      message: "Enterprise name must be at least 4 letters long",
+    })
+    .regex(/^[A-Za-z]+$/, {
+      message:
+        "Enterprize name must contain only letters from English Alphabet",
     }),
 });
 
@@ -45,25 +53,40 @@ export const RegisterModal = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      password:"",
-      enterprise:"",
+      password: "",
+      enterprise: "",
     },
   });
 
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
 
-  const onToggle = () => {
+  const onToggle = useCallback(() => {
     loginModal.onOpen();
-  };
+    registerModal.onClose();
+  }, [loginModal, registerModal]);
+
+  const [isLoading, setisLoading] = useState(false);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      setisLoading(true);
 
-    if (!registerModal.isOpen) {
-      return null;
+      await axios.post("/api/register", values);
+
+      signIn("credentials", values);
+      toast.success("Account created");
+
+      registerModal.onClose();
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setisLoading(false);
     }
   };
+  if (!registerModal.isOpen) {
+    return null;
+  }
   return (
     <Modal
       title="Register"
@@ -82,7 +105,11 @@ export const RegisterModal = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Email address" {...field} />
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Email address"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -95,7 +122,12 @@ export const RegisterModal = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Password" type="password" {...field} />
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Password"
+                        type="password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,27 +140,33 @@ export const RegisterModal = () => {
                   <FormItem>
                     <FormLabel>Enterprise Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enterprise Name" type="text" {...field} />
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Enterprise Name"
+                        type="text"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <div className="pt-6 space-x-2 flex items-center justify-end">
-                 
-                <Button type="submit">Register</Button>
+                <Button disabled={isLoading} type="submit">
+                  Continue
+                </Button>
               </div>
             </form>
           </Form>
         </div>
         <div className="text-neutral-400 text-center mt-4">
           <p>
-            First time using Checkout Sellers?{" "}
+            Already registered?{" "}
             <span
               className="text-neutral-800 hover:text-black cursor-pointer hover:underline"
               onClick={onToggle}
             >
-              Regsiter
+              Login
             </span>
           </p>
         </div>
