@@ -1,28 +1,26 @@
 //this function checks if the user is signed in and retrieves the current user's information from the database using Prisma.
+ 
+/* import { NextResponse } from "next/server"; */
+import {getServerSession} from "next-auth";
 
-import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
-
-import prisma from "@/libs/prismadb";
+import prismadb from "@/libs/prismadb";
 import { authOptions } from "@/config/nextauth.config";
 /* import { getSession } from "next-auth/react"; */
 
-const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
-     const session = await getServerSession(req, res, authOptions);
+export async function serverAuth() {
+  const session = await getServerSession(authOptions);
+   
+  if (!session?.user?.email) {
+    throw new Error("not signed in");
+  }
+  const currentUser = await prismadb.user.findUnique({
+    where: {
+      email: session.user.email,
+    },
+  });
+  if (!currentUser) {
+    throw new Error("Not signed in");
+  }
 
-     if (!session?.user?.email) {
-          throw new Error("not signed in");
-     }
-     const currentUser = await prisma.user.findUnique({
-          where: {
-               email: session.user.email,
-          },
-     });
-     if (!currentUser) {
-          throw new Error("Not signed in");
-     }
-
-     return { currentUser };
-};
-
-export default serverAuth;
+  return { currentUser };
+}

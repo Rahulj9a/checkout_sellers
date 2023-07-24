@@ -4,7 +4,7 @@ import fetcher from "@/libs/fetcher";
 // Replace with the correct path to your reactQueryClient.js file
 
 const usecurrentUser = () => {
-  const { data, error, isError, isLoading, refetch } = useQuery(
+  const { data, error, isError, isLoading } = useQuery(
     "currentUser",
     () => fetcher("/api/current")
   );
@@ -13,7 +13,7 @@ const usecurrentUser = () => {
     data,
     error,
     isLoading,
-    refetch,
+    
     isError,
   };
 };

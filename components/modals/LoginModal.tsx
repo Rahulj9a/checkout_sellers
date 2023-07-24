@@ -68,9 +68,8 @@ export const LoginModal = () => {
       setisLoading(false);
     }
   };
-  if (!loginModal.isOpen) {
-    return null;
-  }
+   
+
   return (
     <Modal
       title="Login"

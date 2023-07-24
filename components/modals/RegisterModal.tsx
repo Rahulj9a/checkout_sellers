@@ -17,7 +17,7 @@ import Modal from "@/components/ui/Modal";
 import { useRegisterModal } from "@/hooks/useRegisterModal";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { useCallback, useState } from "react";
-import { useQuery } from "react-query";
+
 import axios from "axios";
 import { signIn } from "next-auth/react";
 
@@ -84,9 +84,7 @@ export const RegisterModal = () => {
       setisLoading(false);
     }
   };
-  if (!registerModal.isOpen) {
-    return null;
-  }
+   
   return (
     <Modal
       title="Register"
