@@ -6,7 +6,7 @@ import AddStoreColumn from "@/components/modals/Store/AddStoreColumn";
 import usecurrentUser from "@/hooks/useCurrentUser";
 import { useLoginModal } from "@/hooks/useLoginModal";
 
-import Image from "next/image";
+ 
 import { useEffect } from "react";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
       loginModal.onClose()
     }
   }, [currentUser, loginModal ]);
-  
+   
   if(!currentUser){
     return null
   }

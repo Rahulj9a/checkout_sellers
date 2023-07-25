@@ -24,8 +24,8 @@ export default function Header() {
 
         </div>
         <div className="flex-none">
-          <MenubarMenu>
-            <MenubarTrigger>
+          <MenubarMenu >
+            <MenubarTrigger className="px-0 py-0 rounded-full mx-4">
               <AvatarModal />
             </MenubarTrigger>
             <MenubarContent>

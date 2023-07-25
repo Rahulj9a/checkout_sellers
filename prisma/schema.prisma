@@ -20,4 +20,18 @@ model User {
   createAt       DateTime @default(now())
   updatedAt      DateTime @updatedAt
   logo           String?
+
+  stores         Store[] @relation("StoreOfOwner")
+}
+
+model Store {
+  id         String   @id @default(uuid())
+  name       String
+  createAt   DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  coverImage String?
+  ownerId    String
+  owner      User     @relation("StoreOfOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@index([ownerId])
 }

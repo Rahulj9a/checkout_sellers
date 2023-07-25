@@ -8,9 +8,9 @@ const AvatarModal = () => {
   const enterprise =  currentUser.enterprise
   return (
     <div>
-      <Avatar>
+      <Avatar className=" p-1  flex items-center justify-center">
         {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
-        <AvatarFallback>{enterprise[0]}</AvatarFallback>
+        <AvatarFallback className="bg-black text-white text-lg">{enterprise[0]}</AvatarFallback>
       </Avatar>
     </div>
   );
