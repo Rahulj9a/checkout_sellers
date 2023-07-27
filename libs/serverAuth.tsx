@@ -1,7 +1,7 @@
 //this function checks if the user is signed in and retrieves the current user's information from the database using Prisma.
- 
+
 /* import { NextResponse } from "next/server"; */
-import {getServerSession} from "next-auth";
+import {getServerSession} from "next-auth/next";
 
 import prismadb from "@/libs/prismadb";
 import { authOptions } from "@/config/nextauth.config";
@@ -9,6 +9,7 @@ import { authOptions } from "@/config/nextauth.config";
 
 export async function serverAuth() {
   const session = await getServerSession(authOptions);
+   
    
   if (!session?.user?.email) {
     throw new Error("not signed in");
@@ -18,6 +19,7 @@ export async function serverAuth() {
       email: session.user.email,
     },
   });
+   
   if (!currentUser) {
     throw new Error("Not signed in");
   }

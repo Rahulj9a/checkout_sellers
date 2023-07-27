@@ -1,7 +1,7 @@
 "use client"
 
-import { LoginModal } from "@/components/modals/LoginModal"
-import { RegisterModal } from "@/components/modals/RegisterModal"
+/* import { LoginModal } from "@/components/modals/LoginModal"
+import { RegisterModal } from "@/components/modals/RegisterModal" */
 import { AddStoreModal } from "@/components/modals/Store/AddStoreModal"
  
 /* to ensure that their is no hydration error, as our layout is server side and using login/register rendering can cause the hydration error */
@@ -21,8 +21,8 @@ export const ModalProvider = ()=>{
     //but if we are on client side it will render the login/registerstore modal (until we want)-
     return(
         <>
-        <LoginModal/>
-        <RegisterModal/> 
+      {/*   <LoginModal/>
+        <RegisterModal/>  */}
         <AddStoreModal/>
         </>
     )

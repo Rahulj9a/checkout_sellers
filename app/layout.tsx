@@ -1,10 +1,11 @@
+ 
 import "./globals.css";
 import type { Metadata } from "next";
 
 import { Inter } from "next/font/google";
 import { NextAuthProvider } from "@/providers/nextAuthProvider";
 import { ModalProvider } from "@/providers/modalProvider";
-import ReactQueryProvider from "@/providers/reactQueryProvider";
+import {ReactQueryProvider} from "@/providers/reactQueryProvider";
 import { ToasterProvider } from "@/providers/toast-provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,7 +26,8 @@ export default function RootLayout({
         <ReactQueryProvider>
           <NextAuthProvider>
             <ToasterProvider />
-            <ModalProvider/>
+            <ModalProvider />
+
             {children}
           </NextAuthProvider>
         </ReactQueryProvider>
