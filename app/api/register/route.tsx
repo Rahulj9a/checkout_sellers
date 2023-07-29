@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 export async function POST(
   req: Request
 ) {
-  if (req.method == "POST") {
+   
     try {
       const { email, enterprise, password } =await req.json();
        
@@ -26,10 +26,9 @@ export async function POST(
        
       return new NextResponse("internalError", {status:500});
     }
-  } else {
-    return new NextResponse("Something went wrong", {status:405})
+    
   }
-}
+ 
 
 
 

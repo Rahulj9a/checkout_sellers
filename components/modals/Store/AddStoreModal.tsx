@@ -25,19 +25,12 @@ const formSchema = z.object({
 });
 
 export const AddStoreModal = () => {
-  const { data: currentUser } = usecurrentUser();
+   
 
   const storeModal = useStoreModal();
-  const [ownerId, setOwnerId] = useState("");
+   
   const [isLoading, setisLoading] = useState(false);
-  useEffect(() => {
-    if (!currentUser) {
-      setisLoading(true);
-    } else {
-      setOwnerId(currentUser.id);
-      setisLoading(false);
-    }
-  }, [currentUser,isLoading,ownerId]);
+  
 
   
 
@@ -53,7 +46,7 @@ export const AddStoreModal = () => {
        
       setisLoading(true);
       
-      const response = await axios.post("/api/stores", { ...values, ownerId });
+      const response = await axios.post("/api/stores", { ...values/* , ownerId  */});
 
       toast.success("Store created successfully")
       storeModal.onClose
