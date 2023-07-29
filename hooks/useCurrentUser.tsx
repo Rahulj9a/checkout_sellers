@@ -1,3 +1,4 @@
+ 
 import { useQuery } from "react-query";
 
 import fetcher from "@/libs/fetcher";

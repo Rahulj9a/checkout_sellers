@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import React from "react"
 import { QueryClient, QueryClientProvider } from "react-query"
@@ -13,4 +13,4 @@ function ReactQueryProvider({children}:React.PropsWithChildren){
     )
 }
 
-export default ReactQueryProvider
+export  { ReactQueryProvider}
