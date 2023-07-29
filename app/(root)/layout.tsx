@@ -1,15 +1,14 @@
-
- 
-
- 
+import Header from "@/components/modals/Header";
 
 export default async function SetupLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  
-   
-
-  return <>{children}</>;
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  );
 }
