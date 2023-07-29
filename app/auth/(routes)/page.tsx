@@ -13,24 +13,26 @@ const page = () => {
   
   const {data:currentUser} = usecurrentUser();
 
+  
   useEffect(() => {
     if(currentUser){
       setIsLoading(true)
       redirect('/')
-      setIsLoading(false)
+       
     }
+    
     if (!currentUser && !loginModal.isOpen ) {
       setIsLoading(true)
       loginModal.onOpen();
       setIsLoading(false)
     }
   }, [currentUser, loginModal]);
-  if(loading){
-    return<>Loading...</>
-  }
+
+
+  
   return (
     <div>
-      <LoginModal />
+      <LoginModal  />
       <RegisterModal />
     </div>
   );
