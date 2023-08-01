@@ -48,8 +48,8 @@ export const AddStoreModal = () => {
       
       const response = await axios.post("/api/stores", { ...values/* , ownerId  */});
 
-      toast.success("Store created successfully")
-      storeModal.onClose
+      toast.success("Store created successfully")                                                                                   
+      storeModal.onClose()
     } catch (error) {
       console.log(error);
     } finally {

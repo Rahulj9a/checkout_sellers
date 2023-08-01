@@ -1,4 +1,6 @@
-import usecurrentUser from "@/hooks/useCurrentUser";
+
+//these API handle fetching all the stores and creating a new store
+
 import prismadb from "@/libs/prismadb";
 import { serverAuth } from "@/libs/serverAuth";
 import { NextResponse } from "next/server";

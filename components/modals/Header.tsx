@@ -18,34 +18,41 @@ import AvatarModal from "@/components/modals/AvatarModal";
 import { signOut } from "next-auth/react";
 import usecurrentUser from "@/hooks/useCurrentUser";
 import { redirect } from "next/navigation";
+import { ReactElement } from "react";
+
 
 interface HeaderProps{
-  storeId?: string,
-  storeName?:string
+  id?: string,
+  name?:string
   ownerId?:string
+  body?:ReactElement
 }
 
-const Header:React.FC<HeaderProps> =  ({storeId, storeName,ownerId}) => {
+const Header:React.FC<HeaderProps> =  ({body, ...store}) => {
 
 const {data:currentUser,isLoading,isError} = usecurrentUser()
  
+if(isLoading){
+  return <div></div>
+}
 
-
-if(!currentUser){
+if(!currentUser&& !isLoading){
+ 
   redirect("/auth")
 }
-if(storeId){
-   if(ownerId!=currentUser.id){
-      redirect("/")
+if(store.id){
+   if(store.ownerId!=currentUser.id){
+     redirect('/')
    }
 }
+
  
   return (
      
       <Menubar className="flex">
         <div className="flex-1 ">
-            <div className="flex items-center justify-center">
-                  {currentUser.enterprise} {storeName||""}
+            <div className="flex items-center justify-start">
+                  {body}
             </div>
         </div>
         <div className="flex-none">
@@ -58,7 +65,7 @@ if(storeId){
               <MenubarItem>Edit Profile</MenubarItem>
 
               <MenubarSeparator />
-              <MenubarItem onClick={() => {console.log('signing out'); signOut()}}>Logout</MenubarItem>
+              <MenubarItem onClick={() => {signOut();redirect('/auth')}}>Logout</MenubarItem>
             </MenubarContent>
           </MenubarMenu>
         </div>

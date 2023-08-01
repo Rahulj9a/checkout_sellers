@@ -4,20 +4,22 @@ import { RegisterModal } from "@/components/modals/RegisterModal";
 import usecurrentUser from "@/hooks/useCurrentUser";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { useRegisterModal } from "@/hooks/useRegisterModal";
-import { redirect } from "next/navigation";
+import { redirect,useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const page = () => {
   const loginModal = useLoginModal();
   const [loading,setIsLoading] = useState(false)
-  
+  const router = useRouter()
   const {data:currentUser} = usecurrentUser();
 
   
   useEffect(() => {
+       
+
     if(currentUser){
       setIsLoading(true)
-      redirect('/')
+     redirect('/')
        
     }
     
@@ -26,12 +28,12 @@ const page = () => {
       loginModal.onOpen();
       setIsLoading(false)
     }
-  }, [currentUser, loginModal]);
+  }, [currentUser, loginModal,loading]);
 
 
-  
+   
   return (
-    <div>
+    <div >
       <LoginModal  />
       <RegisterModal />
     </div>
