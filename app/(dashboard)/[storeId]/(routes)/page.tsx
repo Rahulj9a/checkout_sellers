@@ -1,9 +1,16 @@
+import Sidebar from '@/components/modals/Sidebar/sidebar'
 import React from 'react'
 
 const DashboardPage = () => {
   
   return (
-    <div>DashboardPage</div>
+    <div className='flex h-full'>
+      <div>
+      <Sidebar />
+      </div>
+      
+       
+    </div>
   )
 }
 

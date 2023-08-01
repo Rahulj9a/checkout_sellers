@@ -49,7 +49,7 @@ if(store.id){
  
   return (
      
-      <Menubar className="flex">
+      <Menubar className="flex  bg-white">
         <div className="flex-1 ">
             <div className="flex items-center justify-start">
                   {body}

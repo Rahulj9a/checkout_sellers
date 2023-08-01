@@ -2,6 +2,7 @@ import Header from "@/components/modals/Header";
 import prismadb from "@/libs/prismadb";
 import { redirect } from "next/navigation";
 import { StoresNav } from "@/components/modals/StoresNav";
+ 
 
 
 export default async function DashboardLayout({
@@ -29,6 +30,7 @@ export default async function DashboardLayout({
     </div>
     return (
         <>
+        
             <Header {...store} body={storeNav} />
             {children}
         </>
