@@ -34,7 +34,7 @@ const StoreSwitcher: React.FC<StoreSwitcherProps> = ({
     label: item.name,
     value: item.id
   }))
-  console.log(formattedItems)
+ 
 
   const currentStore = formattedItems.find((item) => item.value === params.storeId)
 

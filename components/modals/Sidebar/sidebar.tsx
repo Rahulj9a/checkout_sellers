@@ -1,16 +1,55 @@
 'use client'
+import { Button } from '@/components/ui/button'
 import { useSideBar } from '@/hooks/useSideBar'
+import SideBarItem from '@/components/modals/Sidebar/sideBarItems'
 import { SidebarClose, SidebarOpen } from 'lucide-react'
-import React from 'react'
+import { useParams, usePathname } from 'next/navigation'
+import React, { useState } from 'react'
+import useGetStores from '@/hooks/useGetStores'
+import StoreSwitcher from '@/components/modals/StoreSwitcher'
 
 const Sidebar = () => {
-    const sidebar = useSideBar()
+  const pathname = usePathname()
+  const params = useParams()
+  const { data: Stores, isLoading } = useGetStores();
+  const routes = [{
+    label: "Home",
+    href: `/home`,
+
+
+  }, {
+    label: "Settings",
+    href: `/${params.storeId}/settings`,
+    active: pathname === `/${params.storeId}/settings`
+
+  },]
+
+
+  const sidebar = useSideBar()
+
+  const toggleVisiblity = () => {
+    if (sidebar.isOpen) {
+      sidebar.onClose()
+    } else {
+      sidebar.onOpen()
+    }
+  }
   return (
-    <div className={`w-[250px] h-screen -translate-y-10 duration-150 -z-10  absolute bg-red-200 ${!sidebar.isOpen?'-translate-x-[250px]':''}`}>
-        <div className='absolute m-auto -right-5 top-12'>
-             {sidebar.isOpen?<SidebarClose onClick={()=>sidebar.onClose()} className='h-7 w-7 '/>:<SidebarOpen onClick={()=>sidebar.onOpen()} className='h-7 w-7'/>}
+    <nav className={`w-[250px] h-screen pt-3  duration-150 z-10 fixed bg-red-200  ${!sidebar.isOpen ? '-translate-x-[250px] md:translate-x-0' : ''}`}>
+      <Button className='absolute  block md:hidden m-auto -right-9 ' variant='ghost' onClick={toggleVisiblity}>
+        {sidebar.isOpen ? <SidebarClose className='h-7 w-7 bg-white' /> : <SidebarOpen className='h-7 w-7 bg-white' />}
+      </Button>
+      <div className='px-2 flex flex-col items-center justify-center'>
+        <div className=" ">
+          {!isLoading ? <StoreSwitcher items={Stores} /> : ""}
         </div>
-    </div>
+        {routes.map((route) => {
+          return (
+            <SideBarItem {...route} key={route.href} />
+          )
+        })}
+      </div>
+    </nav>
   )
 }
 

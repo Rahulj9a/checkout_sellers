@@ -5,9 +5,7 @@ const DashboardPage = () => {
   
   return (
     <div className='flex h-full'>
-      <div>
-      <Sidebar />
-      </div>
+       This is Home
       
        
     </div>

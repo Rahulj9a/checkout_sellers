@@ -1,8 +1,9 @@
-import Header from "@/components/modals/Header";
+import Navbar from "@/components/modals/Navbar";
 import prismadb from "@/libs/prismadb";
 import { redirect } from "next/navigation";
-import { StoresNav } from "@/components/modals/StoresNav";
  
+import Sidebar from "@/components/modals/Sidebar/sidebar";
+
 
 
 export default async function DashboardLayout({
@@ -24,15 +25,18 @@ export default async function DashboardLayout({
         redirect("/")
     }
 
-    const storeNav = <div className="flex w-fit items-center gap-4 mx-4">
-
-        <StoresNav className=' ' />
-    </div>
+     
     return (
         <>
-        
-            <Header {...store} body={storeNav} />
-            {children}
+
+            
+            <div className=" md:flex ">
+                <Sidebar />
+                <div className="md:ml-[250px]">
+                    {children}
+                </div>
+
+            </div>
         </>
     )
 
