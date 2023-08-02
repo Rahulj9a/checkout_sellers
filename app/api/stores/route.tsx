@@ -42,17 +42,15 @@ export async function GET() {
       return new NextResponse("Something went wrong", { status: 400 });
     }
     let stores;
-    stores = await prismadb.user.findUnique({
+    stores = await prismadb.store.findMany({
       where: {
-        id: userId,
+        ownerId: userId,
       },
-      include: {
-        stores: {
+      
           orderBy: {
-            createAt: "desc",
+            createAt: "asc",
           },
-        },
-      },
+        
     });
     if (!stores) {
       return NextResponse.json(null);

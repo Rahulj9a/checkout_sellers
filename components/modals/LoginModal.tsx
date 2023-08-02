@@ -19,6 +19,7 @@ import { useLoginModal } from "@/hooks/useLoginModal";
 import { useRegisterModal } from "@/hooks/useRegisterModal";
 import { useCallback, useState } from "react";
 import { signIn } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -41,6 +42,7 @@ const formSchema = z.object({
 
 
 export const LoginModal = () => {
+  const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -61,7 +63,8 @@ export const LoginModal = () => {
       setisLoading(true)
       await signIn("credentials", values);
       toast.success("Login Successfull")
-      loginModal.onClose();
+      router.push('/home')
+      
     } catch (error) {
       toast.error("Something went wrong")
     } finally {

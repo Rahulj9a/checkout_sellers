@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import usecurrentUser from "@/hooks/useCurrentUser";
 import { toast } from "react-hot-toast";
+import useGetStores from "@/hooks/useGetStores";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -28,6 +29,7 @@ export const AddStoreModal = () => {
    
 
   const storeModal = useStoreModal();
+  const {refetch} = useGetStores()
    
   const [isLoading, setisLoading] = useState(false);
   
@@ -48,7 +50,8 @@ export const AddStoreModal = () => {
       
       const response = await axios.post("/api/stores", { ...values/* , ownerId  */});
 
-      toast.success("Store created successfully")                                                                                   
+      toast.success("Store created successfully")     
+      refetch()                                                                              
       storeModal.onClose()
     } catch (error) {
       console.log(error);

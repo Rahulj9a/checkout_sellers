@@ -1,13 +1,17 @@
-import Header from "@/components/modals/Navbar";
+import Navbar from "@/components/modals/Navbar";
+ 
+ 
+  
 
 export default async function SetupLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+    
   return (
     <>
-      <Header />
+      <Navbar />
       {children}
     </>
   );

@@ -17,9 +17,11 @@ import Modal from "@/components/ui/Modal";
 import { useRegisterModal } from "@/hooks/useRegisterModal";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { useCallback, useState } from "react";
+import { redirect, useRouter } from "next/navigation";
 
 import axios from "axios";
 import { signIn } from "next-auth/react";
+ 
 
 const formSchema = z.object({
   email: z.string().email({
@@ -49,6 +51,7 @@ const formSchema = z.object({
 });
 
 export const RegisterModal = () => {
+  const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -76,8 +79,8 @@ export const RegisterModal = () => {
 
       signIn("credentials", values);
       toast.success("Account created");
-
-      registerModal.onClose();
+       router.push('/home')
+       
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
