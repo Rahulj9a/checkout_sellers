@@ -1,4 +1,4 @@
-import Header from "@/components/modals/Header";
+import Header from "@/components/modals/Navbar";
 
 export default async function SetupLayout({
   children,

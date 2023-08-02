@@ -19,7 +19,7 @@ const page = () => {
 
     if(currentUser){
       setIsLoading(true)
-     redirect('/')
+     redirect('/home')
        
     }
     
