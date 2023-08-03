@@ -8,10 +8,13 @@ export default async function SetupLayout({
 }: {
   children: React.ReactNode;
 }) {
-    
+   
+   
+
+
   return (
     <>
-      <Navbar />
+      <Navbar/>
       {children}
     </>
   );

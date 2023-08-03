@@ -7,7 +7,7 @@ const  page = () => {
   const router = useRouter()
    
   const handleClick = () =>{
-    console.log('clicked')
+     
     router.push('/auth')
   }
   return (

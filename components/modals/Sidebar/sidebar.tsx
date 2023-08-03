@@ -3,15 +3,17 @@ import { Button } from '@/components/ui/button'
 import { useSideBar } from '@/hooks/useSideBar'
 import SideBarItem from '@/components/modals/Sidebar/sideBarItems'
 import { SidebarClose, SidebarOpen } from 'lucide-react'
-import { useParams, usePathname } from 'next/navigation'
-import React, { useState } from 'react'
+import { redirect, useParams, usePathname } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 import useGetStores from '@/hooks/useGetStores'
 import StoreSwitcher from '@/components/modals/StoreSwitcher'
+import usecurrentUser from '@/hooks/useCurrentUser'
 
 const Sidebar = () => {
   const pathname = usePathname()
   const params = useParams()
-  const { data: Stores, isLoading } = useGetStores();
+   
+  const { data:Stores, isLoading } = useGetStores();
   const routes = [{
     label: "Home",
     href: `/home`,
