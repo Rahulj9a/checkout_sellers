@@ -21,7 +21,9 @@ import { redirect, useRouter } from "next/navigation";
 
 import axios from "axios";
 import { signIn } from "next-auth/react";
- 
+interface RegsiterModalProps {
+  refetch: () => void; // Assuming refetch is a function that doesn't take any arguments and returns void
+}
 
 const formSchema = z.object({
   email: z.string().email({
@@ -50,8 +52,8 @@ const formSchema = z.object({
     }),
 });
 
-export const RegisterModal = () => {
-  const router = useRouter()
+export const RegisterModal: React.FC<RegsiterModalProps> = ({ refetch }) => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -79,15 +81,14 @@ export const RegisterModal = () => {
 
       signIn("credentials", values);
       toast.success("Account created");
-       router.push('/home')
-       
+      refetch();
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
       setisLoading(false);
     }
   };
-   
+
   return (
     <Modal
       title="Register"

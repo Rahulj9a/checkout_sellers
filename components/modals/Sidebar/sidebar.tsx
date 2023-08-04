@@ -4,16 +4,28 @@ import { useSideBar } from '@/hooks/useSideBar'
 import SideBarItem from '@/components/modals/Sidebar/sideBarItems'
 import { SidebarClose, SidebarOpen } from 'lucide-react'
 import { redirect, useParams, usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import useGetStores from '@/hooks/useGetStores'
 import StoreSwitcher from '@/components/modals/StoreSwitcher'
 import usecurrentUser from '@/hooks/useCurrentUser'
+import prismadb from '@/libs/prismadb'
 
-const Sidebar = () => {
+
+
+const Sidebar =   ( )=> {
   const pathname = usePathname()
   const params = useParams()
-   
+  
   const { data:Stores, isLoading } = useGetStores();
+  const sidebar = useSideBar()
+  
+  
+  
+  
+  
+ 
+  
+  
   const routes = [{
     label: "Home",
     href: `/home`,
@@ -27,10 +39,10 @@ const Sidebar = () => {
   },]
 
 
-  const sidebar = useSideBar()
+  
 
   const toggleVisiblity = () => {
-    if (sidebar.isOpen) {
+    if ( sidebar.isOpen) {
       sidebar.onClose()
     } else {
       sidebar.onOpen()

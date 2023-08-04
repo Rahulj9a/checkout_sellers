@@ -12,7 +12,7 @@ export async function serverAuth() {
    
    
   if (!session?.user?.email) {
-    throw new Error("not signed in");
+    return {currentUser:null}
   }
   const currentUser = await prismadb.user.findUnique({
     where: {
@@ -21,8 +21,8 @@ export async function serverAuth() {
   });
    
   if (!currentUser) {
-    throw new Error("Not signed in");
+    return {currentUser:null}
   }
 
-  return { currentUser };
+  return { currentUser:currentUser || null };
 }

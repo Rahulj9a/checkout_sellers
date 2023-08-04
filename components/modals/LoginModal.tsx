@@ -2,7 +2,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {toast} from "react-hot-toast"
+import { toast } from "react-hot-toast";
 
 import {
   Form,
@@ -19,7 +19,10 @@ import { useLoginModal } from "@/hooks/useLoginModal";
 import { useRegisterModal } from "@/hooks/useRegisterModal";
 import { useCallback, useState } from "react";
 import { signIn } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+
+interface LoginModalProps {
+  refetch: () => void; // Assuming refetch is a function that doesn't take any arguments and returns void
+}
 
 const formSchema = z.object({
   email: z.string().email({
@@ -39,10 +42,7 @@ const formSchema = z.object({
     ),
 });
 
-
-
-export const LoginModal = () => {
-  const router = useRouter()
+export const LoginModal: React.FC<LoginModalProps> = ({ refetch }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,7 +50,7 @@ export const LoginModal = () => {
       password: "",
     },
   });
-  const [isLoading, setisLoading] = useState(false)
+  const [isLoading, setisLoading] = useState(false);
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const onToggle = useCallback(() => {
@@ -60,18 +60,16 @@ export const LoginModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      setisLoading(true)
+      setisLoading(true);
       await signIn("credentials", values);
-      toast.success("Login Successfull")
-      router.push('/home')
-      
+      toast.success("Login Successfull");
+      refetch();
     } catch (error) {
-      toast.error("Something went wrong")
+      toast.error("Something went wrong");
     } finally {
       setisLoading(false);
     }
   };
-   
 
   return (
     <Modal
@@ -91,7 +89,12 @@ export const LoginModal = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input disabled={isLoading} placeholder="Your Email" type="email" {...field} />
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Your Email"
+                        type="email"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -105,7 +108,7 @@ export const LoginModal = () => {
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
-                      disabled={isLoading}
+                        disabled={isLoading}
                         placeholder="Password"
                         type="password"
                         {...field}
@@ -116,8 +119,9 @@ export const LoginModal = () => {
                 )}
               />
               <div className="pt-6 space-x-2 flex items-center justify-end">
-                 
-                <Button disabled={isLoading} type="submit">Login</Button>
+                <Button disabled={isLoading} type="submit">
+                  Login
+                </Button>
               </div>
             </form>
           </Form>
