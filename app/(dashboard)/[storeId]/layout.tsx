@@ -28,9 +28,9 @@ export default async function DashboardLayout({
 
   return (
     <>
-      <div className=" md:flex ">
-        <Sidebar />
-        <div className="md:ml-[250px]">{children}</div>
+      <div className=" md:flex  ">
+        <Sidebar/>
+        <div className="md:ml-[250px] w-full">{children}</div>
       </div>
     </>
   );

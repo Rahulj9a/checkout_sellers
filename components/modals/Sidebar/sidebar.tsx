@@ -31,6 +31,12 @@ const Sidebar =   ( )=> {
     href: `/home`,
 
 
+  },
+  {
+    label: "Dashboard",
+    href: `/${params.storeId}`,
+    active: pathname === `/${params.storeId}`
+
   }, {
     label: "Settings",
     href: `/${params.storeId}/settings`,
@@ -53,7 +59,7 @@ const Sidebar =   ( )=> {
       <Button className='absolute  block md:hidden m-auto -right-9 ' variant='ghost' onClick={toggleVisiblity}>
         {sidebar.isOpen ? <SidebarClose className='h-7 w-7 bg-white' /> : <SidebarOpen className='h-7 w-7 bg-white' />}
       </Button>
-      <div className='px-2 flex flex-col items-center justify-center'>
+      <div className=' pl-2 flex flex-col items-center justify-center'>
         <div className=" ">
           {!isLoading ? <StoreSwitcher items={Stores} /> : ""}
         </div>

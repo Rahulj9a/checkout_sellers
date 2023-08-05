@@ -21,7 +21,7 @@ import { toast } from "react-hot-toast";
 import useGetStores from "@/hooks/useGetStores";
 
 const formSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().min(2),
   
 });
 

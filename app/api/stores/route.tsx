@@ -7,9 +7,13 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const { currentUser } = await serverAuth();
+  if (!currentUser) {
+    return new NextResponse("Something went wrong", { status: 400 });
+  }
   try {
     const body = await req.json();
     const ownerId = currentUser.id;
+    
     const { name } = body;
 
     if (!ownerId) {
@@ -34,9 +38,12 @@ export async function POST(req: Request) {
 
 export async function GET() {
   const { currentUser } = await serverAuth();
-   
+  if (!currentUser) {
+    return new NextResponse("Something went wrong", { status: 400 });
+  }
   try {
     const userId = currentUser.id;
+
 
     if (!userId) {
       return new NextResponse("Something went wrong", { status: 400 });
