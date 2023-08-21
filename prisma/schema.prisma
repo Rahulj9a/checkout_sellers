@@ -1,19 +1,23 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
+  output   = "./generated/client"
 }
 
 datasource db {
-  provider     = "mysql"
+  provider     = "mongodb"
   url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  
 }
 
 model User {
-  id             String   @id @default(uuid())
-  enterprise     String?  @unique
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  enterprise     String?   
   email          String?  @unique
   emailverified  String?
   hashedPassword String?
@@ -21,17 +25,17 @@ model User {
   updatedAt      DateTime @updatedAt
   logo           String?
 
-  stores         Store[] @relation("StoreOfOwner")
+  stores Store[]
 }
 
 model Store {
-  id         String   @id @default(uuid())
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   name       String
+   
   createAt   DateTime @default(now())
   updatedAt  DateTime @updatedAt
   coverImage String?
-  ownerId    String
-  owner      User     @relation("StoreOfOwner", fields: [ownerId], references: [id], onDelete: Cascade)
-
-  @@index([ownerId])
+  ownerId    String   @db.ObjectId
+  owner      User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 }
+

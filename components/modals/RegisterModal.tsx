@@ -81,7 +81,7 @@ export const RegisterModal: React.FC<RegsiterModalProps> = ({ refetch }) => {
 
       signIn("credentials", values);
       toast.success("Account created");
-      refetch();
+     /*  refetch(); */
     } catch (error) {
       toast.error("Something went wrong");
     } finally {

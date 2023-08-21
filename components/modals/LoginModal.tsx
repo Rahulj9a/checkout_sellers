@@ -63,7 +63,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({ refetch }) => {
       setisLoading(true);
       await signIn("credentials", values);
       toast.success("Login Successfull");
-      refetch();
+      /* refetch(); */
     } catch (error) {
       toast.error("Something went wrong");
     } finally {

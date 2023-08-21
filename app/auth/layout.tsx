@@ -1,6 +1,7 @@
+import { serverAuth } from "@/libs/serverAuth";
+import { redirect } from "next/navigation";
+
  
-/* import usecurrentUser from "@/hooks/useCurrentUser";
-import { redirect } from "next/navigation"; */
  
 
  
@@ -11,7 +12,10 @@ export default async function SetupLayout({
   children: React.ReactNode;
 }) {
    
-   
+   const {currentUser} = await serverAuth()
+   if(currentUser){
+    redirect("/home")
+   }
    
      
    

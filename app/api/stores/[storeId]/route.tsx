@@ -1,4 +1,4 @@
-import prismadb from "@/libs/prismadb"
+import prisma from "@/libs/prismadb"
 import { serverAuth } from "@/libs/serverAuth"
 import { NextResponse } from "next/server"
 
@@ -18,7 +18,7 @@ export async function PATCH( req: Request , { params }: { params: { storeId: str
         if(!params.storeId){
             return new NextResponse("Store id is required",{status:400})
         }
-        const store = await prismadb.store.updateMany({
+        const store = await prisma.store.updateMany({
             where:{
                 id:params.storeId,
                 ownerId:currentUser.id
@@ -49,7 +49,7 @@ export async function DELETE( req: Request , { params }: { params: { storeId: st
         if(!params.storeId){
             return new NextResponse("Store id is required",{status:400})
         }
-        const store = await prismadb.store.deleteMany({
+        const store = await prisma.store.deleteMany({
             where:{
                 id:params.storeId,
                 ownerId:currentUser.id
