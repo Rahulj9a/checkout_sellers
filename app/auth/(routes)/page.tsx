@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 
 const page = () => {
   const loginModal = useLoginModal();
-  const [loading, setIsLoading] = useState(false);
+  
 
   const { data: currentUser, isLoading, refetch } = usecurrentUser();
 

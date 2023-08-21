@@ -23,6 +23,8 @@ import axios from "axios";
 import { redirect, useParams, useRouter } from "next/navigation";
 import useGetStores from "@/hooks/useGetStores";
 import AlertModal from "@/components/modals/alert-modal";
+import { ApiAlert } from "@/components/ui/apiAlert";
+import { useOrigin } from "@/hooks/useOrigin";
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -40,6 +42,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loading, setloading] = useState(false);
+  const origin = useOrigin()
 
   const form = useForm<SettingFormValues>({
     resolver: zodResolver(formSchema),
@@ -126,6 +129,8 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
           </Button>
         </form>
       </Form>
+      <Separator/>
+      <ApiAlert title="NEXT_PUBLIC_API_URL" description={`${origin}/api/${params.storeId}`} variant="public"/>
     </>
   );
 };

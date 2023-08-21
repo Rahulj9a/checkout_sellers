@@ -1,7 +1,7 @@
 
 //these API handle fetching all the stores and creating a new store
 
-import prismadb from "@/libs/prismadb";
+import prisma from "@/libs/prismadb";
 import { serverAuth } from "@/libs/serverAuth";
 import { NextResponse } from "next/server";
 
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       return new NextResponse("Name is required", { status: 400 });
     }
 
-    const store = await prismadb.store.create({
+    const store = await prisma.store.create({
       data: {
         name,
         ownerId,
@@ -49,7 +49,7 @@ export async function GET() {
       return new NextResponse("Something went wrong", { status: 400 });
     }
     let stores;
-    stores = await prismadb.store.findMany({
+    stores = await prisma.store.findMany({
       where: {
         ownerId: userId,
       },
