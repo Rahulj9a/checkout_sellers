@@ -6,18 +6,16 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/client"
 }
 
 datasource db {
-  provider     = "mongodb"
-  url          = env("DATABASE_URL")
-  
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  enterprise     String?   
+  enterprise     String?
   email          String?  @unique
   emailverified  String?
   hashedPassword String?
@@ -29,13 +27,25 @@ model User {
 }
 
 model Store {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-   
-  createAt   DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  coverImage String?
-  ownerId    String   @db.ObjectId
-  owner      User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ownerId String @db.ObjectId
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  billboard Billboard[]
 }
 
+model Billboard {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  label    String
+  imageUrl String
+
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  storeId   String   @db.ObjectId
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+}
