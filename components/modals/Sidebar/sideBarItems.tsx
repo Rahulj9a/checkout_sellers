@@ -6,12 +6,12 @@ import React from 'react'
 
 interface sideBarItemsProps {
     label: string;
-    href?:string;
+    href?: string;
     className?: string
-    active?:boolean
+    active?: boolean
 }
 const SideBarItem: React.FC<sideBarItemsProps> = ({
-    label,href, className,active
+    label, href, className, active
 }) => {
     const router = useRouter()
     const handleClick = () => {
@@ -24,13 +24,11 @@ const SideBarItem: React.FC<sideBarItemsProps> = ({
         <>
 
 
-            <Button variant='ghost' className={cn("  p-2 my-2 ", active?"w-[242px] rounded-l-full bg-white":"w-[220px]" , className)}>
-                <span className='text-lg md:text-xl' onClick={handleClick}>
+            <Button variant='ghost' className={cn("flex flex- p-2 my-2 w-[220px] hover:bg-lime-100", active?"w-[242px] rounded-l-full bg-lime-100" :"w-[220px]", className)}>
+                <p className='text-lg md:text-xl' onClick={handleClick}>
                     {label}
-                </span>
-                <span>
+                </p>
                  
-                </span>
             </Button>
 
         </>
