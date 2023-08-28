@@ -40,11 +40,11 @@ interface BillboardFormProps {
 
 const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   const params = useParams();
-  const { refetch } = useGetStores();
+   
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loading, setloading] = useState(false);
-  const origin = useOrigin()
+  
 
   const title = initialData ? "Edit billboard" : "Create billboard"
   const description = initialData ? "Edit a billboard" : "Create a new billboard"
