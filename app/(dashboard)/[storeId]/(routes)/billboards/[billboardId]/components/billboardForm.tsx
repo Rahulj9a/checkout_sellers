@@ -18,13 +18,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "react-hot-toast";
-import { useQuery } from "react-query";
+ 
 import axios from "axios";
-import { redirect, useParams, useRouter } from "next/navigation";
-import useGetStores from "@/hooks/useGetStores";
+import {  useParams, useRouter } from "next/navigation";
+ 
 import AlertModal from "@/components/modals/alert-modal";
-import { ApiAlert } from "@/components/ui/apiAlert";
-import { useOrigin } from "@/hooks/useOrigin";
+ 
 import ImageUpload from "@/components/ui/imageUpload";
 
 const formSchema = z.object({
