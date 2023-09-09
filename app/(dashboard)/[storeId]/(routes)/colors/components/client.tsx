@@ -6,23 +6,23 @@ import { Heading } from '@/components/ui/heading'
 import { Plus } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import React from 'react'
-import { SizeColumn, columns } from './columns'
+import {  ColorColumn, columns } from './columns'
 import { Separator } from '@radix-ui/react-separator'
 import { DataTable } from '@/components/ui/dataTable'
 
 
-interface SizeClientProps{
-   data: SizeColumn[]
+interface ColorClientProps{
+   data: ColorColumn[]
 }
 
-const SizesClient:React.FC<SizeClientProps> = ({data}) => {
+const ColorsClient:React.FC<ColorClientProps> = ({data}) => {
     const router = useRouter()
     const params = useParams()
   return (
      <>
      <div className='flex items-center justify-between'>
-        <Heading title={`Sizes (${data.length})`}description='Manage sizes for your products' />
-        <Button variant="outline" onClick={()=>router.push(`/${params.storeId}/sizes/new`)}>
+        <Heading title={`Colors (${data.length})`}description='Manage colors for your products' />
+        <Button variant="outline" onClick={()=>router.push(`/${params.storeId}/colors/new`)}>
             <Plus className='w-4 h-4 mr-2'/>
             Add new
         </Button>
@@ -34,4 +34,4 @@ const SizesClient:React.FC<SizeClientProps> = ({data}) => {
   )
 }
 
-export default SizesClient
+export default ColorsClient
