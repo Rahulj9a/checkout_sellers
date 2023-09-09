@@ -53,6 +53,11 @@ const Sidebar =   ( )=> {
     href: `/${params.storeId}/categories`,
     active: pathname === `/${params.storeId}/categories`
 
+  },{
+    label: "sizes",
+    href: `/${params.storeId}/sizes`,
+    active: pathname === `/${params.storeId}/sizes`
+
   },]
 
 
