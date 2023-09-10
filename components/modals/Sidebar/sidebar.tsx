@@ -50,6 +50,11 @@ const Sidebar = () => {
       href: `/${params.storeId}/colors`,
       active: pathname === `/${params.storeId}/colors`,
     },
+    {
+      label: "Products",
+      href: `/${params.storeId}/products`,
+      active: pathname === `/${params.storeId}/products`,
+    },
   ];
 
   const toggleVisiblity = () => {
