@@ -5,6 +5,7 @@ import {getServerSession} from "next-auth/next";
 
 import prismadb from "@/libs/prismadb";
 import { authOptions } from "@/config/nextauth.config";
+ 
 /* import { getSession } from "next-auth/react"; */
 
 export async function serverAuth() {
