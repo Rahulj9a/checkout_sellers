@@ -78,9 +78,9 @@ export async function GET(req: Request, { params }: { params: { storeId: string 
     try {
         const{searchParams} = new URL(req.url);
         const categoryId = searchParams.get("categoryId") || undefined
-        const sizeId = searchParams.get("categoryId") || undefined
-        const colorId = searchParams.get("categoryId") || undefined
-        const isFeatured = searchParams.get("categoryId")
+        const sizeId = searchParams.get("sizeId") || undefined
+        const colorId = searchParams.get("colorId") || undefined
+        const isFeatured = searchParams.get("isFeatured")
 
 
         if (!params.storeId) {
