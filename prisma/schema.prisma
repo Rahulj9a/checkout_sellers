@@ -41,6 +41,7 @@ model Store {
   size      Size[]
   color     Color[]
   product   Product[]
+  order     Order[]
 }
 
 model Billboard {
@@ -111,6 +112,7 @@ model Product {
   color      Color    @relation(fields: [colorId], references: [id])
 
   image Image[]
+  orderItem OrderItem[]
 }
 
 model Image {
@@ -121,4 +123,28 @@ model Image {
   productId String   @db.ObjectId
 
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  isPaid    Boolean  @default(false)
+  phone     String   @default("")
+  address   String   @default("")
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  storeId   String   @db.ObjectId
+  store     Store    @relation(fields: [storeId], references: [id])
+
+  orderItems OrderItem[]
+}
+
+model OrderItem {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  productId String @db.ObjectId
+  product Product @relation(fields: [productId], references: [id])
+  orderId   String   @db.ObjectId
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
