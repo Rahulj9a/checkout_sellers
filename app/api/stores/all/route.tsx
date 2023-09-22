@@ -7,7 +7,7 @@ export async function GET() {
     stores = await prisma.store.findMany({
        include:{
         category:true,
-        billboard:true
+        product:true
        },
        orderBy: {
         createAt: "desc",
