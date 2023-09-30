@@ -63,3 +63,21 @@ export async function DELETE( req: Request , { params }: { params: { storeId: st
         return new NextResponse('internal error',{status:500})
     }
 };
+export async function GET( req: Request , { params }: { params: { storeId: string } }) {
+    try {
+      let store;
+      store = await prisma.store.findUnique({
+         where:{
+            id:params.storeId
+         }
+      });
+      if (!store) {
+        return NextResponse.json(null);
+      }
+       
+      return NextResponse.json(store, { status: 200 });
+    } catch (error) {
+      console.log("[Store_GETALL]", error);
+      return new NextResponse("Internal Error", { status: 500 });
+    }
+  }

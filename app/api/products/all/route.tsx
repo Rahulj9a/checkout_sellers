@@ -9,6 +9,7 @@ export async function GET(req: Request) {
         const sizeId = searchParams.get("sizeId") || undefined
         const colorId = searchParams.get("colorId") || undefined
         const isFeatured = searchParams.get("isFeatured")
+        const storeId = searchParams.get("storeId")||undefined
 
 
          
@@ -16,7 +17,7 @@ export async function GET(req: Request) {
 
         const product = await prisma.product.findMany({
             where: {
-                
+                storeId,
                 categoryId,
                 colorId,
                 sizeId,

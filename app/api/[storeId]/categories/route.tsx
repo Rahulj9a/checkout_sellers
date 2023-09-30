@@ -66,6 +66,9 @@ export async function GET(req:Request, {params}:{params:{storeId:string}}) {
             where: {
                 storeId: params.storeId,
             },
+            include:{
+                billboard:true
+            },
 
             orderBy: {
                 createAt: "asc",

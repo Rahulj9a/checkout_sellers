@@ -102,7 +102,10 @@ export async function GET( req: Request , { params }: { params: { categoryId:str
             where:{
                 id:params.categoryId,
                 
-            },
+            },include:{
+                billboard:true,
+                store:true
+            }
              
         });
         return NextResponse.json(category)
