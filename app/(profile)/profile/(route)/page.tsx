@@ -5,8 +5,8 @@ import { signOut } from 'next-auth/react'
 import { redirect, useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 
-const page = () => {
-    const router = useRouter()
+const Page = () => {
+    
     const {data:currentUser} = usecurrentUser()
     useEffect(()=>{
         if(!currentUser){
@@ -30,4 +30,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

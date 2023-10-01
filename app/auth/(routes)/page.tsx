@@ -7,7 +7,7 @@ import { useLoginModal } from "@/hooks/useLoginModal";
 import { redirect, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const page = () => {
+const Page = () => {
   const loginModal = useLoginModal();
   
 
@@ -38,4 +38,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
