@@ -2,15 +2,15 @@
 import { Button } from '@/components/ui/button'
 import usecurrentUser from '@/hooks/useCurrentUser'
 import { signOut } from 'next-auth/react'
-import { redirect, useRouter } from 'next/navigation'
+import {useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 
 const Page = () => {
-    
+    const router = useRouter()
     const {data:currentUser} = usecurrentUser()
     useEffect(()=>{
         if(!currentUser){
-            redirect('/')
+            router.push('/auth')
         }
     })
     const handleClick = async () => {

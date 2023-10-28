@@ -20,6 +20,7 @@ import usecurrentUser from "@/hooks/useCurrentUser";
 import { useRouter, redirect } from "next/navigation";
 import { ReactElement } from "react";
 import useGetStores from "@/hooks/useGetStores";
+import { Skeleton } from "../ui/skeleton";
 
 interface NavbarProps {
   id?: string;
@@ -32,7 +33,9 @@ const Navbar: React.FC<NavbarProps> = ({ body, ...store }) => {
   const { data: currentUser, isLoading } = usecurrentUser();
 
   if (isLoading) {
-    return <div></div>;
+    return <div className="flex items-center justify-end px-4 py-1 border-b">
+      <Skeleton className="rounded-full w-8 h-8"/>
+      </div>;
   }
 
   if (!currentUser && !isLoading) {

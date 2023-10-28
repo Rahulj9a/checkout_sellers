@@ -16,8 +16,8 @@ import { Button } from "@/components/ui/button";
 import Modal from "@/components/ui/Modal";
 import { useRegisterModal } from "@/hooks/useRegisterModal";
 import { useLoginModal } from "@/hooks/useLoginModal";
-import { useCallback, useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+ 
 
 import axios from "axios";
 import { signIn } from "next-auth/react";
@@ -53,7 +53,8 @@ const formSchema = z.object({
 });
 
 export const RegisterModal: React.FC<RegsiterModalProps> = ({ refetch }) => {
-  const router = useRouter();
+   
+ 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

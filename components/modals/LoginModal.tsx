@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import Modal from "@/components/ui/Modal";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { useRegisterModal } from "@/hooks/useRegisterModal";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 
 interface LoginModalProps {
@@ -43,6 +43,7 @@ const formSchema = z.object({
 });
 
 export const LoginModal: React.FC<LoginModalProps> = ({ refetch }) => {
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

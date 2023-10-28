@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import usecurrentUser from "@/hooks/useCurrentUser";
 import { redirect, useRouter } from "next/navigation";
+import { Skeleton } from "../ui/skeleton";
 
 interface AvatarModalProps {
    
@@ -13,7 +14,7 @@ const router = useRouter()
   
   const {data:currentUser,isLoading} = usecurrentUser()
   if(isLoading){
-    return <div></div>
+    return <Skeleton className="rounded-full w-8 h-8"/>
   }
   
   if(!currentUser && !isLoading){
